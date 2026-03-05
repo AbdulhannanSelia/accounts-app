@@ -134,14 +134,31 @@ st.subheader("Report")
 
 st.text_area("Result", report, height=260)
 
+copy_code = f"""
+<script>
+function copyText() {{
+navigator.clipboard.writeText(`{report}`);
+alert("Report copied!");
+}}
+</script>
+<button onclick="copyText()" style="
+width:100%;
+padding:12px;
+font-size:18px;
+border-radius:8px;
+border:none;
+background-color:#4CAF50;
+color:white;
+cursor:pointer;">
+📋 Copy Report
+</button>
+"""
+
+st.markdown(copy_code, unsafe_allow_html=True)
+
 st.download_button(
     "💾 Download Report",
     report,
     file_name="daily_cash_report.txt",
     use_container_width=True
 )
-
-if st.button("🔄 Reset All", use_container_width=True):
-    st.session_state.expenses = []
-    st.session_state.incomes = []
-    st.rerun()
